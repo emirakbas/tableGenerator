@@ -27,7 +27,7 @@ document.querySelector('#createTable').addEventListener('click', function() {
         createTableHeader.id = `tableHeader${tableNumber}`;
     // TABLO HEADER OLUŞTURMA KODLARI BİTİŞ.
 
-    // TABLO BAŞLIK OLUŞTURMA KODLARI:
+    // TABLO HEADER İÇİ KODLARI:
         let tableButUpAdress = document.querySelector(`#tableHeader${tableNumber}`);
         let createTableButUp = document.createElement('div');
 
@@ -41,17 +41,33 @@ document.querySelector('#createTable').addEventListener('click', function() {
         tableButDownAdress.appendChild(createTableButDown);
         createTableButDown.className = 'tableButDown';
         createTableButDown.id = `tableButDown${tableNumber}`;
-
+        // //
         let tableButtonsAdress = document.querySelector(`#tableButDown${tableNumber}`);
         let createTableButtons = document.createElement('button');
-
+        // //
         tableButtonsAdress.appendChild(createTableButtons);
         createTableButtons.className = 'add';
         createTableButtons.id = `add${tableNumber}`;
         createTableButtons.innerHTML = 'Ekle';
-
-
-    // TABLO BAŞLIK OLUŞTURMA KODLARI:
+        // //
+        let createTableButtons2 = document.createElement('button');
+        tableButtonsAdress.appendChild(createTableButtons2);
+        createTableButtons2.className = 'edit';
+        createTableButtons2.id = `edit${tableNumber}`;
+        createTableButtons2.innerHTML = 'Düzenle';
+        // //
+        let createTableButtons3 = document.createElement('button');
+        tableButtonsAdress.appendChild(createTableButtons3);
+        createTableButtons3.className = 'clear';
+        createTableButtons3.id = `clear${tableNumber}`;
+        createTableButtons3.innerHTML = 'Tabloyu Temizle';
+        // //
+        let createTableButtons4 = document.createElement('button');
+        tableButtonsAdress.appendChild(createTableButtons4);
+        createTableButtons4.className = 'delete';
+        createTableButtons4.id = `delete${tableNumber}`;
+        createTableButtons4.innerHTML = 'Tabloyu Sil';
+    // TABLO HEADER İÇİ OLUŞTURMA KODLARI BİTİŞ.
 
     // SATIR OLUŞTURMA KODLARI:
         let tableInsideAdress = document.querySelector(`#table${tableNumber}`);
@@ -66,12 +82,27 @@ document.querySelector('#createTable').addEventListener('click', function() {
         
         for (i = 1; i <= 4; i++) {
         let createColumn = document.createElement('div');
-    
+
         rowAdress.appendChild(createColumn);
         createColumn.className = `tableColumn`;
         createColumn.id = `tableColumn${columnCounter}`;
 
-        document.querySelector(`#tableColumn${columnCounter}`).innerHTML = 'Örnek';
+        // SÜTUN BAŞLIKLARI İÇİN DÖNGÜ:
+            if (i == 1) {
+                createColumn.innerHTML = 'İsim';
+            } else if (i == 2) {
+                createColumn.innerHTML = 'Soyisim';
+            }
+            else if (i == 3) {
+                createColumn.innerHTML = 'Numara';
+            }
+            else if (i == 4) {
+                createColumn.innerHTML = 'İşlem';
+            };
+        // SÜTUN BAŞLIKLARI İÇİN DÖNGÜ BİTİŞ.
+
+        // SÜTUN İÇİNDEKİ İÇERİKLERİ OLUŞTURMA:
+
 
         columnCounter++;
         };

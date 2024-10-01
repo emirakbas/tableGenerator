@@ -119,6 +119,8 @@ button {
     border-radius: 1vh;
     width: 100%;
     height: 100%;
+    white-space: wrap;
+    overflow: hidden;
 }
 
 .b1 button{
@@ -229,7 +231,7 @@ button {
     height: 80%;
 }
 
-.tableColumn {
+.tableRow {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -239,7 +241,7 @@ button {
     flex-wrap: nowrap;
 }
 
-.tableRow {
+.tableColumn {
     display: flex;
     justify-content: center;
     align-items: center;

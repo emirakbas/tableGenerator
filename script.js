@@ -1,15 +1,50 @@
-var rowCounter = 0;
+var rowCounter = 1;
 var columnCounter = 0;
 var tableNumber = 0;
 var focusInput = document.querySelector('#tableName');
 focusInput.focus();
+
+document.querySelector('#tableName').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        focusUserName = document.querySelector('#userName');
+        focusUserName.focus();
+    }
+});
+
+document.querySelector('#userName').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        focusSurName = document.querySelector('#surName');
+        focusSurName.focus();
+    }
+});
+
+document.querySelector('#surName').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        focusUserNumber = document.querySelector('#userNumber');
+        focusUserNumber.focus();
+    }
+});
+
+document.querySelector('#userNumber').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        document.querySelector('#createTable').click();
+    }
+}); // Enter'a basıldığında tablo oluştur butonuna tıklanır.
+
+document.querySelector(`#deleteAllTables`).addEventListener('click', function() {
+    let deleteAllTables = document.querySelector('#tablesContainer');
+    deleteAllTables.innerHTML = '';
+    tableNumber = 0;
+    rowCounter = 1;
+    columnCounter = 0;
+    console.log('Tüm tablolar silindi.');
+});
 
 document.querySelector('#createTable').addEventListener('click', function() {
     let tableName = document.querySelector('#tableName').value;
     let userName = document.querySelector('#userName').value;
     let surName = document.querySelector('#surName').value;
     let userNumber = document.querySelector('#userNumber').value;
-    let tableTitle = document.querySelector('#tableTitle').value;
     console.log(tableName + ' ' + userName + ' ' + surName + ' ' + userNumber);
 
         // REGEX KONTROLÜ:
@@ -18,7 +53,7 @@ document.querySelector('#createTable').addEventListener('click', function() {
                 const regex = /\d+/g;           // \d+ = 1 veya daha fazla sayı bul demek. g = global, yani tüm sayıları bul.  
                 const numbers = str.match(regex);
             // Eğer sayı yoksa boş dizi döner, varsa sayıları döner
-                return numbers ? numbers.map(Number) : [];
+                return numbers ? numbers : [];
         }
         // REGEX KONTROLÜ BİTİŞ.
 
@@ -103,9 +138,18 @@ document.querySelector('#createTable').addEventListener('click', function() {
 
                 if (addButStrToNum1 == addButStrToNum2) {
                     console.log('Ekleme işlemi başarılı.');
+
+                    let tableNewRow = document.querySelector(`#table${addButStrToNum1}`);
+                    let createRow = document.createElement('div');
+                    tableNewRow.appendChild(createRow);
+                    createRow.className = `tableRow`;
+                    createRow.id = `tableRow${columnArrayItemsNumber2 ++}`;
+
                 } else {
                     console.log('Ekle işlemi başarısız.');
                 }
+
+
             });
             
             // DÜZENLE BUTONU İÇİN EVENT:
@@ -167,19 +211,41 @@ document.querySelector('#createTable').addEventListener('click', function() {
         let createRow = document.createElement('div'); //Tabloya satır oluştur.
         tableInsideAdress.appendChild(createRow); //Oluşturulanları HTML'e ekle.
         createRow.className = 'tableRow'; //Oluşturulanlara class ismi ver.
-        createRow.id = `tableRow${rowCounter}`; //Kolon ID'sini her defasında 1 artacak şekilde ayarla.
+        createRow.id = `tableRow${tableNumber}`; //Kolon ID'sini her defasında 1 artacak şekilde ayarla.
     // SATIR OLUŞTURMA KODLARI BİTİŞ.
 
     // SÜTUN OLUŞTURMA KODLARI:
-        let rowAdress = document.querySelector(`#tableRow${rowCounter}`);
+        let rowAdress = document.querySelector(`#tableRow${tableNumber}`);
         
         for (i = 1; i <= 3; i++) {
         let createColumn = document.createElement('div');
 
+        columnIDControl = regexControl(createTableHeader.id);
+        columnIDtoInt = parseInt(columnIDControl);
+
         rowAdress.appendChild(createColumn);
         createColumn.className = `tableColumn`;
-        createColumn.id = `tableColumn${columnCounter}`;
 
+        // HÜCRE ADRES ATAMALARI:
+        createColumn.id = `tableDiv${columnIDtoInt}_Row${rowCounter}_Col${i}`; // TODO: Burada bir hata var! 
+
+        columnArray = [];
+        ColumnIDControl = regexControl(createColumn.id);
+        columnArray.push(ColumnIDControl);
+        columnArray.forEach(function(columnArrayItems) {
+            console.log(columnArrayItems);
+            return columnArrayItems;
+        });
+            
+        columnArrayItems = columnArray[0];
+        console.log(`Sütun ID: ${columnArrayItems}`); // Hücre adreslerini string dizi olarak gösterir.
+        columnArrayItemsNumber1 = parseInt(columnArrayItems[0]); // Hücre adreslerini sayıya çevirir.
+        columnArrayItemsNumber2 = parseInt(columnArrayItems[1]); 
+        columnArrayItemsNumber3 = parseInt(columnArrayItems[2]); 
+        console.log(columnArrayItemsNumber3);
+        // HÜCRE ADRES ATAMALARI BİTİŞ.
+
+        
         // SÜTUN BAŞLIKLARI İÇİN DÖNGÜ:
             if (i == 1) {
                 createColumn.innerHTML = userName;
@@ -194,7 +260,6 @@ document.querySelector('#createTable').addEventListener('click', function() {
                 createColumn.innerHTML = '-';
             }
         // SÜTUN BAŞLIKLARI İÇİN DÖNGÜ BİTİŞ.
-
         columnCounter++;
         };
 
@@ -218,9 +283,6 @@ document.querySelector('#createTable').addEventListener('click', function() {
 
 
     // SÜTUN OLUŞTURMA KODLARI BİTİŞ.
-
     tableNumber++;
-    rowCounter++; //Her tıklamada 1 arttır.
-    console.log(`Kolon: ${columnCounter} \nSatır: ${rowCounter}`);
 
 });

@@ -139,11 +139,12 @@ document.querySelector('#createTable').addEventListener('click', function() {
                 if (addButStrToNum1 == addButStrToNum2) {
                     console.log('Ekleme işlemi başarılı.');
 
-                    let tableNewRow = document.querySelector(`#table${addButStrToNum1}`);
-                    let createRow = document.createElement('div');
-                    tableNewRow.appendChild(createRow);
-                    createRow.className = `tableRow`;
-                    createRow.id = `tableRow${columnArrayItemsNumber2 ++}`;
+                    let tableInsideRowAdress = document.querySelector(`#tableInside${columnIDtoInt}`);
+                    let createTableInsideRow = document.createElement('div');
+                    tableInsideRowAdress.appendChild(createTableInsideRow);
+                    createTableInsideRow.className = 'tableRow';
+                    createTableInsideRow.id = `tableRow${rowCounter}`;
+                    console.log(`Satır Sayısı: ${rowCounter}`); // Yanlış. todo...
 
                 } else {
                     console.log('Ekle işlemi başarısız.');
@@ -206,10 +207,19 @@ document.querySelector('#createTable').addEventListener('click', function() {
 
     // TABLO HEADER İÇİ OLUŞTURMA KODLARI BİTİŞ.
 
-    // SATIR OLUŞTURMA KODLARI:
+
+    // TABLO İÇİ OLUŞTURMA KODLARI:
         let tableInsideAdress = document.querySelector(`#table${tableNumber}`);
+        let createTableInside = document.createElement('div');
+        tableInsideAdress.appendChild(createTableInside);
+        createTableInside.className = 'tableInside';
+        createTableInside.id = `tableInside${tableNumber}`;
+    // TABLO İÇİ OLUŞTURMA KODLARI BİTİŞ.
+
+    // SATIR OLUŞTURMA KODLARI:
+        let tableRowAdress = document.querySelector(`#tableInside${tableNumber}`);
         let createRow = document.createElement('div'); //Tabloya satır oluştur.
-        tableInsideAdress.appendChild(createRow); //Oluşturulanları HTML'e ekle.
+        tableRowAdress.appendChild(createRow); //Oluşturulanları HTML'e ekle.
         createRow.className = 'tableRow'; //Oluşturulanlara class ismi ver.
         createRow.id = `tableRow${tableNumber}`; //Kolon ID'sini her defasında 1 artacak şekilde ayarla.
     // SATIR OLUŞTURMA KODLARI BİTİŞ.
@@ -227,7 +237,7 @@ document.querySelector('#createTable').addEventListener('click', function() {
         createColumn.className = `tableColumn`;
 
         // HÜCRE ADRES ATAMALARI:
-        createColumn.id = `tableDiv${columnIDtoInt}_Row${rowCounter}_Col${i}`; // TODO: Burada bir hata var! 
+        createColumn.id = `tableInside${columnIDtoInt}_Row${rowCounter}_Col${i}`; // TODO: Burada bir hata var! 
 
         columnArray = [];
         ColumnIDControl = regexControl(createColumn.id);
@@ -239,9 +249,9 @@ document.querySelector('#createTable').addEventListener('click', function() {
             
         columnArrayItems = columnArray[0];
         console.log(`Sütun ID: ${columnArrayItems}`); // Hücre adreslerini string dizi olarak gösterir.
-        columnArrayItemsNumber1 = parseInt(columnArrayItems[0]); // Hücre adreslerini sayıya çevirir.
-        columnArrayItemsNumber2 = parseInt(columnArrayItems[1]); 
-        columnArrayItemsNumber3 = parseInt(columnArrayItems[2]); 
+        columnArrayItemsNumber1 = parseInt(columnArrayItems[0]); // Table Inside ID - Tablo içi ID
+        columnArrayItemsNumber2 = parseInt(columnArrayItems[1]); // Row ID - Satır ID
+        columnArrayItemsNumber3 = parseInt(columnArrayItems[2]); // Column ID - ID Sütun ID
         console.log(columnArrayItemsNumber3);
         // HÜCRE ADRES ATAMALARI BİTİŞ.
 
@@ -256,9 +266,13 @@ document.querySelector('#createTable').addEventListener('click', function() {
                 createColumn.innerHTML = userNumber;
             };
 
-            if (userName == '' || surName == '' || userNumber == '') {
+            if (userName == '' && createColumn.id == `tableInside${columnIDtoInt}_Row${rowCounter}_Col1`) {
                 createColumn.innerHTML = '-';
-            }
+            } else if (surName == '' && createColumn.id == `tableInside${columnIDtoInt}_Row${rowCounter}_Col2`) {
+                createColumn.innerHTML = '-';
+            } else if (userNumber == '' && createColumn.id == `tableInside${columnIDtoInt}_Row${rowCounter}_Col3`) {
+                createColumn.innerHTML = '-';
+            };
         // SÜTUN BAŞLIKLARI İÇİN DÖNGÜ BİTİŞ.
         columnCounter++;
         };

@@ -3,15 +3,15 @@
     padding: 0;
     box-sizing: border-box;
     white-space: nowrap;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-button {
-    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 500;
 }
 
 body {
-    background-color: rgb(255, 250, 183);
+background-image: url("https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg");
+background-size: cover;
+color: white;
+background-color: black;
 }
 
 .dataInputContainer {
@@ -23,9 +23,11 @@ body {
     height: 32vh;
     margin: auto;
     margin-top: 10vh;
-    border-radius: 10vh;
+    border-radius: 2vh;
     border: 2px solid rgba(0, 0, 0, 0.404);
     font-size: 0.8rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.404);
 }
 
 .dataInputContainer h1 {
@@ -64,6 +66,8 @@ input {
     border: 1px solid rgba(0, 0, 0, 0.137);
     font-size: 0.8rem;
     padding-left: 1vh;
+    background-color: rgba(255, 255, 255, 0.055);
+    caret-color: brown; /* İnput içerisindeki çizginin rengini değiştirebiliriz. */
 }
 
 .inputContainer input:focus {
@@ -114,13 +118,16 @@ input {
 }
 
 button {
-    border: 1px solid rgba(0, 0, 0, 0.137);
-    background-color: white;
+    border: 2px solid rgba(0, 0, 0, 0.137);
+    background-color: rgb(109, 109, 109);
     border-radius: 1vh;
     width: 100%;
     height: 100%;
     white-space: wrap;
     overflow: hidden;
+    cursor: pointer;
+    font-weight: 500;
+    color: white !important; /* Buton rengini öncelikli olarak değiştirdim. */
 }
 
 .b1 button{
@@ -166,7 +173,9 @@ button {
     border-radius: 2vh;
     border: 2px solid rgba(0, 0, 0, 0.404);
     flex-wrap: wrap;
-    overflow: visible;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.404);
+
 }
 
 .table {
@@ -174,7 +183,7 @@ button {
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    width: 30%;
+    width: 50vh;
     height: 30vh;
     margin-top: 1vh;
     margin-left: 1vh;
@@ -182,6 +191,8 @@ button {
     border-radius: 2vh;
     border: 1px solid rgba(0, 0, 0, 0.404);
     overflow: hidden;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.404);
 }
 
 .tableButtons {
@@ -228,7 +239,10 @@ button {
     justify-content: start;
     align-items: center;
     width: 100%;
-    height: 80%;
+    height: 20vh;
+    overflow: hidden;
+    overflow-y: scroll;
+    scrollbar-color: black white;
 }
 
 .tableRow {
@@ -236,7 +250,7 @@ button {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 30%;
+    height: 5vh;
     border-bottom: 1px solid rgba(0, 0, 0, 0.404);
     flex-wrap: nowrap;
 }

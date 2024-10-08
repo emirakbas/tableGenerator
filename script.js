@@ -1,4 +1,3 @@
-var rowCounter = 1;
 var columnCounter = 0;
 var tableNumber = 0;
 var focusInput = document.querySelector('#tableName');
@@ -6,21 +5,21 @@ focusInput.focus();
 
 document.querySelector('#tableName').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
-        focusUserName = document.querySelector('#userName');
+    let focusUserName = document.querySelector('#userName');
         focusUserName.focus();
     }
 });
 
 document.querySelector('#userName').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
-        focusSurName = document.querySelector('#surName');
+    let focusSurName = document.querySelector('#surName');
         focusSurName.focus();
     }
 });
 
 document.querySelector('#surName').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
-        focusUserNumber = document.querySelector('#userNumber');
+    let focusUserNumber = document.querySelector('#userNumber');
         focusUserNumber.focus();
     }
 });
@@ -35,18 +34,17 @@ document.querySelector(`#deleteAllTables`).addEventListener('click', function() 
     let deleteAllTables = document.querySelector('#tablesContainer');
     deleteAllTables.innerHTML = '';
     tableNumber = 0;
-    rowCounter = 1;
     columnCounter = 0;
     console.log('Tüm tablolar silindi.');
 });
 
 document.querySelector('#createTable').addEventListener('click', function() {
+    let rowCounter = 0;
     let tableName = document.querySelector('#tableName').value;
     let userName = document.querySelector('#userName').value;
     let surName = document.querySelector('#surName').value;
     let userNumber = document.querySelector('#userNumber').value;
     console.log(tableName + ' ' + userName + ' ' + surName + ' ' + userNumber);
-
         // REGEX KONTROLÜ:
         function regexControl(str) {
             // Düzenli ifade ile sayıları bul
@@ -129,28 +127,24 @@ document.querySelector('#createTable').addEventListener('click', function() {
 
                 addControl = regexControl(createTableButtons.id);
                 console.log('Ekle ID: ' + addControl);
-                
+                //
                 tableIDControl = regexControl(createTable.id);
                 console.log('Tablo ID: ' + tableIDControl);
+                //
+                addButtonID = parseInt(addControl);
+                tableButtonID = parseInt(tableIDControl);
 
-                addButStrToNum1 = parseInt(addControl);
-                addButStrToNum2 = parseInt(tableIDControl);
-
-                if (addButStrToNum1 == addButStrToNum2) {
+                if (addButtonID == tableButtonID) {
                     console.log('Ekleme işlemi başarılı.');
-
-                    let tableInsideRowAdress = document.querySelector(`#tableInside${columnIDtoInt}`);
+                    let tableInsideRowAdress = document.querySelector(`#tableInside${addButtonID}`);
                     let createTableInsideRow = document.createElement('div');
                     tableInsideRowAdress.appendChild(createTableInsideRow);
                     createTableInsideRow.className = 'tableRow';
-                    createTableInsideRow.id = `tableRow${rowCounter}`;
-                    console.log(`Satır Sayısı: ${rowCounter}`); // Yanlış. todo...
-
+/*                     createTableInsideRow.id = `tableRow${tableRowCounter}`;
+                    console.log('Satır ID: ' + tableRowCounter); Todo: Burada kronik hatalar mevcut.  */
                 } else {
                     console.log('Ekle işlemi başarısız.');
                 }
-
-
             });
             
             // DÜZENLE BUTONU İÇİN EVENT:
@@ -227,7 +221,7 @@ document.querySelector('#createTable').addEventListener('click', function() {
     // SÜTUN OLUŞTURMA KODLARI:
         let rowAdress = document.querySelector(`#tableRow${tableNumber}`);
         
-        for (i = 1; i <= 3; i++) {
+        for (let i = 1; i <= 3; i++) {
         let createColumn = document.createElement('div');
 
         columnIDControl = regexControl(createTableHeader.id);
@@ -249,10 +243,10 @@ document.querySelector('#createTable').addEventListener('click', function() {
             
         columnArrayItems = columnArray[0];
         console.log(`Sütun ID: ${columnArrayItems}`); // Hücre adreslerini string dizi olarak gösterir.
-        columnArrayItemsNumber1 = parseInt(columnArrayItems[0]); // Table Inside ID - Tablo içi ID
-        columnArrayItemsNumber2 = parseInt(columnArrayItems[1]); // Row ID - Satır ID
-        columnArrayItemsNumber3 = parseInt(columnArrayItems[2]); // Column ID - ID Sütun ID
-        console.log(columnArrayItemsNumber3);
+        insideNumber = parseInt(columnArrayItems[0]); // Table Inside ID - Tablo içi ID
+        rowNumber = parseInt(columnArrayItems[1]); // Row ID - Satır ID
+        columnNumber = parseInt(columnArrayItems[2]); // Column ID - ID Sütun ID
+
         // HÜCRE ADRES ATAMALARI BİTİŞ.
 
         
@@ -272,6 +266,7 @@ document.querySelector('#createTable').addEventListener('click', function() {
                 createColumn.innerHTML = '-';
             } else if (userNumber == '' && createColumn.id == `tableInside${columnIDtoInt}_Row${rowCounter}_Col3`) {
                 createColumn.innerHTML = '-';
+            rowCounter++;
             };
         // SÜTUN BAŞLIKLARI İÇİN DÖNGÜ BİTİŞ.
         columnCounter++;
